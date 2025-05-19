@@ -10,8 +10,12 @@ public interface AccountService {
     List<Account> getAllAccounts();
     Optional<Account> getAccountById(Long id);
     Account createAccount(AccountRequestDTO dto);
-
     void deleteAccount(Long id);
     Account updateAccount(Long id, Account updatedAccount);
+    Account deposit(Long id, double amount);
+    Account withdraw(Long id, double amount);
+    void transfer(Long fromAccountId, Long toAccountId, double amount);
+    List<Transaction> getAccountTransactions(Long id);
+    
 
 }
