@@ -77,8 +77,7 @@ public class BaseEntity {
 
     public BaseEntity() {
     }
-    public BaseEntity(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, String createdBy, String lastModifiedBy) {
-        this.id = id;
+    public BaseEntity(LocalDateTime createdDate, LocalDateTime lastModifiedDate, String createdBy, String lastModifiedBy) {
         this.createdDate = createdDate;
         this.lastModifiedDate = lastModifiedDate;
         this.createdBy = createdBy;

@@ -3,6 +3,7 @@ package com.example.accountapp.account.service;
 import com.example.accountapp.account.reporsitory.AccountRepository;
 import com.example.accountapp.account.dto.AccountRequestDTO;
 import com.example.accountapp.account.model.Account;
+import com.example.accountapp.account.reporsitory.TransactionsRepository;
 import com.example.accountapp.user.model.AppUser;
 import com.example.accountapp.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,9 @@ public class AccountServiceImpl implements AccountService{
 
     private final UserRepository userRepository;
 
-    public AccountServiceImpl(AccountRepository accountRepository, UserRepository userRepository) {
+
+
+    public AccountServiceImpl(AccountRepository accountRepository, UserRepository userRepository, TransactionsRepository transactionsRepository) {
         this.userRepository=userRepository;
         this.accountRepository = accountRepository;
     }

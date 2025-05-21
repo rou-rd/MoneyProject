@@ -27,8 +27,8 @@ public class AppUser extends BaseEntity {
 
     }
 
-    public AppUser(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, String createdBy, String lastModifiedBy, String firstName, String lastName, String email, String password, String phoneNumber, Status status, List<Account> accounts) {
-        super(id, createdDate, lastModifiedDate, createdBy, lastModifiedBy);
+    public AppUser(LocalDateTime createdDate, LocalDateTime lastModifiedDate, String createdBy, String lastModifiedBy, String firstName, String lastName, String email, String password, String phoneNumber, Status status, List<Account> accounts) {
+        super(createdDate, lastModifiedDate, createdBy, lastModifiedBy);
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

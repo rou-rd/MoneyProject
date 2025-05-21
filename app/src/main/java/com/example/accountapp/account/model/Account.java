@@ -4,10 +4,12 @@ import com.example.accountapp.common.BaseEntity;
 import com.example.accountapp.common.Currency;
 import com.example.accountapp.common.Status;
 import com.example.accountapp.user.model.AppUser;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Entity
@@ -20,19 +22,30 @@ public class Account extends BaseEntity {
     @JoinColumn(name = "app_user_id")
     private AppUser user;
 
+    public List<Transactions> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transactions> transactions) {
+        this.transactions = transactions;
+    }
+
+    @OneToMany(mappedBy = "account")
+    @JsonIgnore
+    private List<Transactions> transactions;
 
     public Account() {
 
     }
 
-    public Account(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, String createdBy, String lastModifiedBy, AppUser owner, BigDecimal balance, Status status, Currency currency) {
-        super(id, createdDate, lastModifiedDate, createdBy, lastModifiedBy);
-        this.user = owner;
+    public Account(LocalDateTime createdDate, LocalDateTime lastModifiedDate, String createdBy, String lastModifiedBy, BigDecimal balance, Status status, Currency currency, AppUser user, List<Transactions> transactions) {
+        super(createdDate, lastModifiedDate, createdBy, lastModifiedBy);
         this.balance = balance;
         this.status = status;
         this.currency = currency;
+        this.user = user;
+        this.transactions = transactions;
     }
-
 
     public AppUser getOwner() {
         return user;

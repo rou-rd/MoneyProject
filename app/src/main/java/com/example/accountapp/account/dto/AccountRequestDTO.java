@@ -53,8 +53,8 @@ public class AccountRequestDTO extends BaseEntity {
         this.userId = userId;
     }
 
-    public AccountRequestDTO(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, String createdBy, String lastModifiedBy, BigDecimal balance, Status status, Currency currency, Long userId) {
-        super(id, createdDate, lastModifiedDate, createdBy, lastModifiedBy);
+    public AccountRequestDTO(LocalDateTime createdDate, LocalDateTime lastModifiedDate, String createdBy, String lastModifiedBy, BigDecimal balance, Status status, Currency currency, Long userId) {
+        super(createdDate, lastModifiedDate, createdBy, lastModifiedBy);
         this.balance = balance;
         this.status = status;
         this.currency = currency;
