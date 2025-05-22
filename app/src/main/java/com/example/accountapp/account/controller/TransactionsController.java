@@ -27,4 +27,9 @@ public class TransactionsController {
         Account account = transactionsService.deposit(tr.getId(),tr.getAmount(),tr.getType());
         return ResponseEntity.status(HttpStatus.CREATED).body(account);
     }
+     @PostMapping("/withdraw")
+    public ResponseEntity<Account> withdraw(@RequestBody TransacationRequest tr) {
+        Account account = transactionsService.withdraw(tr.getId(),tr.getAmount(),tr.getType());
+        return ResponseEntity.status(HttpStatus.CREATED).body(account);
+    }
 }
