@@ -11,8 +11,9 @@ public interface TransactionsService {
 
     Account deposit(Long id, BigDecimal amount,String type);
     List<Transactions> getAccountTransactions(Long id);
-    /*
+   
     Account withdraw(Long id, BigDecimal amount);
+     /*
     void transfer(Long fromAccountId, Long toAccountId, BigDecimal amount);
 
     */
