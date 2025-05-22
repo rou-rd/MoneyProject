@@ -32,22 +32,22 @@ public class TransactionsServiceImpl implements TransactionsService {
             transactionsRepository.save(new Transactions(LocalDateTime.now(),LocalDateTime.now(),"admin","admin",null,null,amount,account.getCurrency(),type,LocalDateTime.now(),account));
             return account;
         }
-/*
         @Override
-        public Account withdraw(Long id, double amount) {
+        public Account withdraw(Long id, BigDecimal amount,String type) {
             Account account = getAccountOrThrow(id);
 
             if (account.getBalance() < amount) {
                 throw new IllegalArgumentException("Insufficient balance");
             }
 
-            account.setBalance(account.getBalance() - amount);
+            account.setBalance(account.getBalance().subtract(amount));
             accountRepository.save(account);
 
-            transactionRepository.save(new Transaction(account, -amount, TransactionType.WITHDRAWAL, LocalDateTime.now()));
+            transactionsRepository.save(new Transactions(LocalDateTime.now(),LocalDateTime.now(),"admin","admin",null,null,amount,account.getCurrency(),type,LocalDateTime.now(),account));
             return account;
         }
 
+/*
         @Transactional
         @Override
         public void transfer(Long fromAccountId, Long toAccountId, double amount) {
