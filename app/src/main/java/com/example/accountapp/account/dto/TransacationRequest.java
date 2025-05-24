@@ -3,22 +3,33 @@ package com.example.accountapp.account.dto;
 import java.math.BigDecimal;
 
 public class TransacationRequest {
-    private Long id;
+    private Long idUser;
+    private Long idAccount;
     private BigDecimal amount;
+
+    public Long getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
+    }
+
     private String type;
 
-    public TransacationRequest(Long id, BigDecimal amount, String type) {
-        this.id = id;
+    public TransacationRequest(Long idUser, Long idAccount, BigDecimal amount, String type) {
+        this.idUser = idUser;
+        this.idAccount = idAccount;
         this.amount = amount;
         this.type = type;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdAccount() {
+        return idAccount;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdAccount(Long idAccount) {
+        this.idAccount = idAccount;
     }
 
     public BigDecimal getAmount() {

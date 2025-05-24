@@ -4,6 +4,8 @@ import com.example.accountapp.account.model.Account;
 import com.example.accountapp.account.model.Transactions;
 import com.example.accountapp.account.reporsitory.AccountRepository;
 import com.example.accountapp.account.reporsitory.TransactionsRepository;
+import com.example.accountapp.user.model.AppUser;
+import com.example.accountapp.user.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -17,33 +19,39 @@ public class TransactionsServiceImpl implements TransactionsService {
     private final TransactionsRepository transactionsRepository;
     private final AccountRepository accountRepository;
 
-    public TransactionsServiceImpl(TransactionsRepository transactionsRepository, AccountRepository accountRepository) {
+    private final UserRepository userRepository;
+
+    public TransactionsServiceImpl(TransactionsRepository transactionsRepository, AccountRepository accountRepository,UserRepository userRepository) {
         this.transactionsRepository = transactionsRepository;
         this.accountRepository = accountRepository;
+        this.userRepository = userRepository;
     }
 
         @Override
-        public Account deposit(Long id, BigDecimal amount,String type) {
+        public Account deposit(Long id, BigDecimal amount,String type, Long idUser) {
             Account account = getAccountOrThrow(id);
-
+            AppUser user = getUserOrThrow(idUser);
+            account.setLastModifiedBy(user.getEmail());
+            account.setLastModifiedDate(LocalDateTime.now());
             account.setBalance(account.getBalance().add(amount));
             accountRepository.save(account);
 
-            transactionsRepository.save(new Transactions(LocalDateTime.now(),LocalDateTime.now(),"admin","admin",null,null,amount,account.getCurrency(),type,LocalDateTime.now(),account));
+            transactionsRepository.save(new Transactions(LocalDateTime.now(),LocalDateTime.now(),user.getEmail(),user.getEmail(),null,null,amount,account.getCurrency(),type,LocalDateTime.now(),account));
             return account;
         }
         @Override
-        public Account withdraw(Long id, BigDecimal amount,String type) {
-            Account account = getAccountOrThrow(id);
-
-            if (account.getBalance() < amount) {
+        public Account withdraw(Long idAccount, BigDecimal amount, String type, Long idUser) {
+            Account account = getAccountOrThrow(idAccount);
+            AppUser user = getUserOrThrow(idUser);
+            if (account.getBalance().compareTo(amount) >1  ) {
                 throw new IllegalArgumentException("Insufficient balance");
             }
-
+            account.setLastModifiedBy(user.getEmail());
+            account.setLastModifiedDate(LocalDateTime.now());
             account.setBalance(account.getBalance().subtract(amount));
             accountRepository.save(account);
 
-            transactionsRepository.save(new Transactions(LocalDateTime.now(),LocalDateTime.now(),"admin","admin",null,null,amount,account.getCurrency(),type,LocalDateTime.now(),account));
+            transactionsRepository.save(new Transactions(LocalDateTime.now(),LocalDateTime.now(),user.getEmail(),user.getEmail(),null,null,amount,account.getCurrency(),type,LocalDateTime.now(),account));
             return account;
         }
 
@@ -77,6 +85,9 @@ public class TransactionsServiceImpl implements TransactionsService {
         private Account getAccountOrThrow(Long id) {
             return accountRepository.findById(id)
                     .orElseThrow(() -> new EntityNotFoundException("Account not found with id: " + id));
+        }
+        private AppUser getUserOrThrow(Long id){
+            return userRepository.findById(id).orElseThrow(()->  new EntityNotFoundException("User not found with id: " + id));
         }
     }
 
