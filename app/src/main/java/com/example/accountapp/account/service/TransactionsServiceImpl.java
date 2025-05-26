@@ -7,11 +7,13 @@ import com.example.accountapp.account.reporsitory.TransactionsRepository;
 import com.example.accountapp.user.model.AppUser;
 import com.example.accountapp.user.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TransactionsServiceImpl implements TransactionsService {
@@ -55,32 +57,33 @@ public class TransactionsServiceImpl implements TransactionsService {
             return account;
         }
 
-/*
+
         @Transactional
         @Override
-        public void transfer(Long fromAccountId, Long toAccountId, double amount) {
+        public void transfer(Long fromAccountId, Long toAccountId, BigDecimal amount,Long idUser) {
             Account fromAccount = getAccountOrThrow(fromAccountId);
             Account toAccount = getAccountOrThrow(toAccountId);
-
-            if (fromAccount.getBalance() < amount) {
+            AppUser user = getUserOrThrow(idUser);
+            if (fromAccount.getBalance().compareTo(amount) >1) {
                 throw new IllegalArgumentException("Insufficient balance for transfer");
             }
 
-            fromAccount.setBalance(fromAccount.getBalance() - amount);
-            toAccount.setBalance(toAccount.getBalance() + amount);
+            fromAccount.setBalance(fromAccount.getBalance().subtract(amount));
+            toAccount.setBalance(toAccount.getBalance().add(amount));
 
             accountRepository.save(fromAccount);
             accountRepository.save(toAccount);
 
-            transactionRepository.save(new Transaction(fromAccount, -amount, TransactionType.TRANSFER, LocalDateTime.now()));
-            transactionRepository.save(new Transaction(toAccount, amount, TransactionType.TRANSFER, LocalDateTime.now()));
+            transactionsRepository.save(new Transactions(LocalDateTime.now(),LocalDateTime.now(),user.getEmail(),user.getEmail(),fromAccountId,toAccountId,amount.negate(),fromAccount.getCurrency(),"transferOut",LocalDateTime.now(),fromAccount));
+            transactionsRepository.save(new Transactions(LocalDateTime.now(),LocalDateTime.now(),user.getEmail(),user.getEmail(),fromAccountId,toAccountId,amount,fromAccount.getCurrency(),"transferIn",LocalDateTime.now(),toAccount));
         }
-*/
+
         @Override
         public List<Transactions> getAccountTransactions(Long id) {
             Account account = getAccountOrThrow(id);
             return transactionsRepository.findByAccount(account);
         }
+
 
         private Account getAccountOrThrow(Long id) {
             return accountRepository.findById(id)
