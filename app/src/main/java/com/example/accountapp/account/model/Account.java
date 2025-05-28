@@ -3,7 +3,7 @@ package com.example.accountapp.account.model;
 import com.example.accountapp.common.BaseEntity;
 import com.example.accountapp.common.Currency;
 import com.example.accountapp.common.Status;
-import com.example.accountapp.user.model.AppUser;
+import com.example.accountapp.security.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -19,8 +19,8 @@ public class Account extends BaseEntity {
     private Status status;
     private Currency currency;
     @ManyToOne()
-    @JoinColumn(name = "app_user_id")
-    private AppUser user;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public List<Transactions> getTransactions() {
         return transactions;
@@ -38,7 +38,7 @@ public class Account extends BaseEntity {
 
     }
 
-    public Account(LocalDateTime createdDate, LocalDateTime lastModifiedDate, String createdBy, String lastModifiedBy, BigDecimal balance, Status status, Currency currency, AppUser user, List<Transactions> transactions) {
+    public Account(LocalDateTime createdDate, LocalDateTime lastModifiedDate, String createdBy, String lastModifiedBy, BigDecimal balance, Status status, Currency currency, User user, List<Transactions> transactions) {
         super(createdDate, lastModifiedDate, createdBy, lastModifiedBy);
         this.balance = balance;
         this.status = status;
@@ -47,11 +47,11 @@ public class Account extends BaseEntity {
         this.transactions = transactions;
     }
 
-    public AppUser getOwner() {
+    public User getOwner() {
         return user;
     }
 
-    public void setOwner(AppUser owner) {
+    public void setOwner(User owner) {
         this.user = owner;
     }
 

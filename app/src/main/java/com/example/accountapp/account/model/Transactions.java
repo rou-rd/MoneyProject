@@ -2,7 +2,6 @@ package com.example.accountapp.account.model;
 
 import com.example.accountapp.common.BaseEntity;
 import com.example.accountapp.common.Currency;
-import com.example.accountapp.user.model.AppUser;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

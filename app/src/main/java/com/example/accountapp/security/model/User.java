@@ -1,34 +1,62 @@
-package com.example.accountapp.user.model;
+package com.example.accountapp.security.model;
 
 import com.example.accountapp.account.model.Account;
 import com.example.accountapp.common.Status;
 import com.example.accountapp.common.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-public class AppUser extends BaseEntity {
+@Table(name = "users")
+public class User extends BaseEntity {
+    private String username;
     private String firstName;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     private String lastName	;
     private String email;
     private String password;
     private String phoneNumber;
     private Status status;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles;
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Account> accounts;
 
-    public AppUser() {
+    public User() {
 
     }
 
-    public AppUser(LocalDateTime createdDate, LocalDateTime lastModifiedDate, String createdBy, String lastModifiedBy, String firstName, String lastName, String email, String password, String phoneNumber, Status status, List<Account> accounts) {
-        super(createdDate, lastModifiedDate, createdBy, lastModifiedBy);
+
+    public User(String username, String firstName, String lastName, String email, String password, String phoneNumber, Status status, List<Account> accounts) {
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -38,8 +66,17 @@ public class AppUser extends BaseEntity {
         this.accounts = accounts;
     }
 
-
-
+    public User(LocalDateTime createdDate, LocalDateTime lastModifiedDate, String createdBy, String lastModifiedBy, String username, String firstName, String lastName, String email, String password, String phoneNumber, Status status, List<Account> accounts) {
+        super(createdDate, lastModifiedDate, createdBy, lastModifiedBy);
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.status = status;
+        this.accounts = accounts;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -101,8 +138,8 @@ public class AppUser extends BaseEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof AppUser user)) return false;
-        return ((AppUser) o).getId().equals(user.getId());
+        if (!(o instanceof User user)) return false;
+        return ((User) o).getId().equals(user.getId());
     }
 
 }

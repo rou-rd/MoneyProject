@@ -4,8 +4,8 @@ import com.example.accountapp.account.reporsitory.AccountRepository;
 import com.example.accountapp.account.dto.AccountRequestDTO;
 import com.example.accountapp.account.model.Account;
 import com.example.accountapp.account.reporsitory.TransactionsRepository;
-import com.example.accountapp.user.model.AppUser;
-import com.example.accountapp.user.repository.UserRepository;
+import com.example.accountapp.security.model.User;
+import com.example.accountapp.security.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -33,7 +33,7 @@ public class AccountServiceImpl implements AccountService{
         return accountRepository.findById(id);
     }
     public Account createAccount(AccountRequestDTO dto) {
-        AppUser user = userRepository.findById(dto.getUserId())
+        User user = userRepository.findById(dto.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         Account account = new Account();
