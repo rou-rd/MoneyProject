@@ -7,6 +7,16 @@ public class TransacationRequest {
     private Long idAccount;
     private BigDecimal amount;
 
+    private Long categoryId;
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
     private Long toAccountId;
 
     public Long getToAccountId() {
@@ -39,14 +49,17 @@ public class TransacationRequest {
 
     private String type;
 
-    public TransacationRequest(Long idUser, Long idAccount, BigDecimal amount, Long toAccountId, Long fromAccountId, String type) {
+
+    public TransacationRequest(Long idUser, Long idAccount, BigDecimal amount, Long categoryId, Long toAccountId, Long fromAccountId, String type) {
         this.idUser = idUser;
         this.idAccount = idAccount;
         this.amount = amount;
+        this.categoryId = categoryId;
         this.toAccountId = toAccountId;
         this.fromAccountId = fromAccountId;
         this.type = type;
     }
+
 
     public Long getIdAccount() {
         return idAccount;

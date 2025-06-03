@@ -10,10 +10,10 @@ import java.util.Optional;
 public interface TransactionsService {
 
 
-    Account deposit(Long id, BigDecimal amount,String type, Long idUser);
+    Account deposit(Long id, BigDecimal amount,String type, Long idUser,Long categoryId);
     List<Transactions> getAccountTransactions(Long id);
    
-    Account withdraw(Long id, BigDecimal amount,String type,Long idUser);
+    Account withdraw(Long id, BigDecimal amount,String type,Long idUser,Long categoryId);
 
     void transfer(Long fromAccountId, Long toAccountId, BigDecimal amount,Long idUser);
 

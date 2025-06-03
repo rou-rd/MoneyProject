@@ -25,6 +25,18 @@ public class Transactions extends BaseEntity {
         this.account = account;
     }
 
+    public Transactions(LocalDateTime createdDate, LocalDateTime lastModifiedDate, String createdBy, String lastModifiedBy, Long fromAccountId, Long toAccountId, BigDecimal amount, Currency currency, String type, LocalDateTime date, Account account, Category category) {
+        super(createdDate, lastModifiedDate, createdBy, lastModifiedBy);
+        this.fromAccountId = fromAccountId;
+        this.toAccountId = toAccountId;
+        this.amount = amount;
+        this.currency = currency;
+        this.type = type;
+        this.date = date;
+        this.account = account;
+        this.category = category;
+    }
+
     private Long fromAccountId;
     private Long toAccountId;
     private BigDecimal amount;
@@ -36,6 +48,19 @@ public class Transactions extends BaseEntity {
     @ManyToOne()
     @JoinColumn(name = "account")
     private Account account;
+
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     public Account getAccount() {
         return account;
