@@ -1,0 +1,251 @@
+<div class="dashboard">
+  <div class="dashboard-header">
+    <h1>Dashboard</h1>
+    <p>Welcome back! Here's what's happening with your application today.</p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-content">
+        <div class="stat-info">
+          <h3>Total Page Views</h3>
+          <div class="stat-value">{{ formatNumber(stats?.totalPageViews || 442236) }}</div>
+          <div class="stat-growth positive">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+            </svg>
+            59.3%
+          </div>
+          <div class="stat-subtitle">You made an extra 35,000 this year</div>
+        </div>
+        <div class="stat-icon blue">
+          <svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+            <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-content">
+        <div class="stat-info">
+          <h3>Total Users</h3>
+          <div class="stat-value">{{ formatNumber(stats?.totalUsers || 78250) }}</div>
+          <div class="stat-growth positive">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+            </svg>
+            70.5%
+          </div>
+          <div class="stat-subtitle">You made an extra 8,900 this year</div>
+        </div>
+        <div class="stat-icon green">
+          <svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-content">
+        <div class="stat-info">
+          <h3>Total Order</h3>
+          <div class="stat-value">{{ formatNumber(stats?.totalOrders || 18800) }}</div>
+          <div class="stat-growth negative">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+            </svg>
+            27.4%
+          </div>
+          <div class="stat-subtitle">You made an extra 1,943 this year</div>
+        </div>
+        <div class="stat-icon orange">
+          <svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-content">
+        <div class="stat-info">
+          <h3>Total Sales</h3>
+          <div class="stat-value">${{ formatNumber(stats?.totalSales || 35078) }}</div>
+          <div class="stat-growth negative">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+            </svg>
+            27.4%
+          </div>
+          <div class="stat-subtitle">You made an extra $20,395 this year</div>
+        </div>
+        <div class="stat-icon purple">
+          <svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="charts-section">
+    <div class="chart-card main-chart">
+      <div class="chart-header">
+        <div>
+          <h3>Unique Visitor</h3>
+          <div class="chart-tabs">
+            <button class="chart-tab">Month</button>
+            <button class="chart-tab active">Week</button>
+          </div>
+        </div>
+      </div>
+      <div class="chart-content">
+        <div class="mock-area-chart">
+          <!-- Mock Area Chart -->
+          <svg viewBox="0 0 600 200" class="area-chart">
+            <defs>
+              <linearGradient id="blueGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:0.3"/>
+                <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:0.1"/>
+              </linearGradient>
+              <linearGradient id="lightBlueGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#60A5FA;stop-opacity:0.4"/>
+                <stop offset="100%" style="stop-color:#60A5FA;stop-opacity:0.1"/>
+              </linearGradient>
+            </defs>
+            
+            <!-- Page Views Area -->
+            <path d="M50 150 L100 120 L150 100 L200 90 L250 70 L300 50 L350 60 L400 40 L450 45 L550 60 L550 180 L50 180 Z" 
+                  fill="url(#blueGradient)" stroke="#3B82F6" stroke-width="2"/>
+            
+            <!-- Sessions Area -->
+            <path d="M50 170 L100 140 L150 130 L200 110 L250 100 L300 80 L350 90 L400 70 L450 75 L550 85 L550 180 L50 180 Z" 
+                  fill="url(#lightBlueGradient)" stroke="#60A5FA" stroke-width="2"/>
+            
+            <!-- Data points -->
+            <circle cx="100" cy="120" r="4" fill="#3B82F6"/>
+            <circle cx="200" cy="90" r="4" fill="#3B82F6"/>
+            <circle cx="300" cy="50" r="4" fill="#3B82F6"/>
+            <circle cx="400" cy="40" r="4" fill="#3B82F6"/>
+            <circle cx="500" cy="55" r="4" fill="#3B82F6"/>
+          </svg>
+          
+          <div class="chart-legend">
+            <div class="legend-item">
+              <span class="legend-color blue"></span>
+              Page Views
+            </div>
+            <div class="legend-item">
+              <span class="legend-color light-blue"></span>
+              Sessions
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-card income-chart">
+      <div class="chart-header">
+        <h3>Income Overview</h3>
+        <div class="income-value">
+          <div class="income-title">This Week Statistics</div>
+          <div class="income-amount">$7,650</div>
+        </div>
+      </div>
+      <div class="chart-content">
+        <div class="mock-bar-chart">
+          <div class="bar-container">
+            <div class="bar" style="height: 60%"></div>
+            <div class="bar-label">Mo</div>
+          </div>
+          <div class="bar-container">
+            <div class="bar" style="height: 80%"></div>
+            <div class="bar-label">Tu</div>
+          </div>
+          <div class="bar-container">
+            <div class="bar" style="height: 70%"></div>
+            <div class="bar-label">We</div>
+          </div>
+          <div class="bar-container">
+            <div class="bar" style="height: 45%"></div>
+            <div class="bar-label">Th</div>
+          </div>
+          <div class="bar-container">
+            <div class="bar" style="height: 55%"></div>
+            <div class="bar-label">Fr</div>
+          </div>
+          <div class="bar-container">
+            <div class="bar" style="height: 40%"></div>
+            <div class="bar-label">Sa</div>
+          </div>
+          <div class="bar-container">
+            <div class="bar" style="height: 75%"></div>
+            <div class="bar-label">Su</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Activity -->
+  <div class="activity-section">
+    <div class="activity-card">
+      <h3>Recent Orders</h3>
+      <div class="activity-list">
+        <div class="activity-item">
+          <div class="activity-info">
+            <div class="activity-title">Order #1234 completed</div>
+            <div class="activity-time">2 minutes ago</div>
+          </div>
+          <div class="activity-amount">+$250.00</div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-info">
+            <div class="activity-title">New user registration</div>
+            <div class="activity-time">5 minutes ago</div>
+          </div>
+          <div class="activity-status">New</div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-info">
+            <div class="activity-title">Order #1233 refunded</div>
+            <div class="activity-time">1 hour ago</div>
+          </div>
+          <div class="activity-amount negative">-$120.00</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="activity-card analytics">
+      <h3>Analytics Report</h3>
+      <div class="analytics-grid">
+        <div class="analytics-item">
+          <div class="analytics-label">Bounce Rate</div>
+          <div class="analytics-value">24.5%</div>
+          <div class="analytics-change positive">↑ 2.1%</div>
+        </div>
+        <div class="analytics-item">
+          <div class="analytics-label">Session Duration</div>
+          <div class="analytics-value">3m 45s</div>
+          <div class="analytics-change positive">↑ 15s</div>
+        </div>
+        <div class="analytics-item">
+          <div class="analytics-label">Conversion Rate</div>
+          <div class="analytics-value">3.2%</div>
+          <div class="analytics-change negative">↓ 0.3%</div>
+        </div>
+        <div class="analytics-item">
+          <div class="analytics-label">Page Load Time</div>
+          <div class="analytics-value">1.8s</div>
+          <div class="analytics-change positive">↓ 0.2s</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
