@@ -4,28 +4,20 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 export interface User {
-  id: number;
-  email: string;
-  firstName: string;
-  lastName: string;
-  role?: string;
+  username: string;
+  token: string;
 }
 
 export interface LoginRequest {
-  email: string;
+  username: string;
   password: string;
-}
-
-export interface LoginResponse {
-  token: string;
-  user: User;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/api'; // Spring Boot API URL
+  private apiUrl = 'http://localhost:8081/users'; // adapté à ton backend
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
@@ -33,12 +25,13 @@ export class AuthService {
     this.loadUserFromStorage();
   }
 
-  login(credentials: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}/auth/login`, credentials)
+  login(credentials: LoginRequest): Observable<string> {
+    return this.http.post(`${this.apiUrl}/login`, credentials, { responseType: 'text' })
       .pipe(
-        map(response => {
-          this.setAuthData(response);
-          return response;
+        map((token: string) => {
+          const user: User = { username: credentials.username, token };
+          this.setAuthData(user);
+          return token;
         })
       );
   }
@@ -62,10 +55,10 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  private setAuthData(response: LoginResponse): void {
-    localStorage.setItem('token', response.token);
-    localStorage.setItem('user', JSON.stringify(response.user));
-    this.currentUserSubject.next(response.user);
+  private setAuthData(user: User): void {
+    localStorage.setItem('token', user.token);
+    localStorage.setItem('user', JSON.stringify(user));
+    this.currentUserSubject.next(user);
   }
 
   private loadUserFromStorage(): void {
