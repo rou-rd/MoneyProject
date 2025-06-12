@@ -21,6 +21,18 @@ export const routes: Routes = [
         loadComponent: () => import('./components/dashboard/dashboard.component').then(m => m.DashboardComponent)
       },
       {
+        path: 'financial-dashboard',
+        loadComponent: () => import('./components/financial-dashboard/financial-dashboard.component').then(m => m.FinancialDashboardComponent)
+      },
+      {
+        path: 'accounts',
+        loadComponent: () => import('./components/accounts/accounts.component').then(m => m.AccountsComponent)
+      },
+      {
+        path: 'categories',
+        loadComponent: () => import('./components/categories/categories.component').then(m => m.CategoriesComponent)
+      },
+      {
         path: 'profile',
         loadComponent: () => import('./components/profile/profile.component').then(m => m.ProfileComponent)
       },
