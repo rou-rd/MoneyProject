@@ -24,7 +24,7 @@ export class LoginComponent {
     private router: Router
   ) {
     this.loginForm = this.fb.group({
-      email: ['admin@gmail.com', [Validators.required, Validators.email]],
+      username: ['salma', [Validators.required]],
       password: ['password', [Validators.required]],
       rememberMe: [false]
     });
@@ -35,12 +35,12 @@ export class LoginComponent {
     // Update form values based on tab
     if (tab === 'admin') {
       this.loginForm.patchValue({
-        email: 'admin@gmail.com',
+        username: 'salma',
         password: 'password'
       });
     } else {
       this.loginForm.patchValue({
-        email: 'user@gmail.com',
+       username: 'salma',
         password: 'password'
       });
     }
@@ -56,7 +56,7 @@ export class LoginComponent {
       this.loginError = '';
 
       const credentials = {
-        email: this.loginForm.value.email,
+        username: this.loginForm.value.username,
         password: this.loginForm.value.password
       };
 
@@ -75,11 +75,7 @@ export class LoginComponent {
             const mockResponse = {
               token: 'mock-jwt-token',
               user: {
-                id: 1,
-                email: credentials.email,
-                firstName: 'Admin',
-                lastName: 'User',
-                role: this.activeTab
+                username: credentials.username,
               }
             };
             

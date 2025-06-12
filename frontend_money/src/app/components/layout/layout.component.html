@@ -98,8 +98,8 @@
           <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&dpr=1" alt="User Avatar">
         </div>
         <div class="user-details" *ngIf="!sidebarCollapsed">
-          <div class="user-name">{{ currentUser.firstName }} {{ currentUser.lastName }}</div>
-          <div class="user-role">{{ currentUser.role || 'User' }}</div>
+          <div class="user-name">{{ currentUser.username }} {{ currentUser.username }}</div>
+          <div class="user-role">{{ currentUser.username || 'User' }}</div>
         </div>
       </div>
     </div>
@@ -159,7 +159,7 @@
             <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&dpr=1" alt="Admin User">
           </div>
           <div class="user-info">
-            <div class="user-name">{{ currentUser?.firstName || 'Admin' }} {{ currentUser?.lastName || 'User' }}</div>
+            <div class="user-name">{{ currentUser?.username || 'Admin' }} {{ currentUser?.username || 'User' }}</div>
           </div>
           <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>

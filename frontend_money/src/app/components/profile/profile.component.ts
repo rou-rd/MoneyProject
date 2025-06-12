@@ -49,9 +49,7 @@ export class ProfileComponent implements OnInit {
       this.currentUser = user;
       if (user) {
         this.profileForm.patchValue({
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email
+          username: user.username,
         });
       }
     });
