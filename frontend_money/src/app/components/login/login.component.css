@@ -192,12 +192,13 @@
 
 .social-login {
   margin-top: 2rem;
+  text-align: center;
 }
 
 .divider {
-  text-align: center;
-  position: relative;
-  margin-bottom: 1.5rem;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #4a4a4a;
 }
 
 .divider::before {
