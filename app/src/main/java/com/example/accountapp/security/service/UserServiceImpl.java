@@ -1,5 +1,6 @@
 package com.example.accountapp.security.service;
 
+import com.example.accountapp.common.Status;
 import com.example.accountapp.security.config.JwtUtil;
 import com.example.accountapp.security.dto.AuthRequest;
 import com.example.accountapp.security.dto.RegisterRequest;
@@ -37,6 +38,11 @@ public class UserServiceImpl implements UserService {
         user.setEmail(request.getEmail());
         user.setRoles(Set.of(userRole));
         user.setCreatedBy(request.getUsername());
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setPhoneNumber(request.getPhoneNumber());
+        user.setStatus(Status.Pending);
+        user.setBirthDate(request.getBirthDate());
         userRepo.save(user);
         return "User registered!";
     }

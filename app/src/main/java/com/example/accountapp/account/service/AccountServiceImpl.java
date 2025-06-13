@@ -4,6 +4,8 @@ import com.example.accountapp.account.reporsitory.AccountRepository;
 import com.example.accountapp.account.dto.AccountRequestDTO;
 import com.example.accountapp.account.model.Account;
 import com.example.accountapp.account.reporsitory.TransactionsRepository;
+import com.example.accountapp.common.Currency;
+import com.example.accountapp.common.Status;
 import com.example.accountapp.security.model.User;
 import com.example.accountapp.security.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -37,13 +39,13 @@ public class AccountServiceImpl implements AccountService{
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         Account account = new Account();
-        account.setCreatedDate(dto.getCreatedDate());
-        account.setLastModifiedDate(dto.getLastModifiedDate());
-        account.setCreatedBy(dto.getCreatedBy());
+        account.setCreatedDate(LocalDateTime.now());
+        account.setLastModifiedDate(LocalDateTime.now());
         account.setBalance(dto.getBalance());
-        account.setStatus(dto.getStatus());
-        account.setCurrency(dto.getCurrency());
+        account.setStatus(Status.Pending);
+        account.setCurrency(Currency.dinar_TN);
         account.setOwner(user);
+        account.setCreatedBy(user.getUsername());
 
         return accountRepository.save(account);
     }

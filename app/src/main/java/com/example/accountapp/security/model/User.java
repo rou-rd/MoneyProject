@@ -3,9 +3,11 @@ package com.example.accountapp.security.model;
 import com.example.accountapp.account.model.Account;
 import com.example.accountapp.common.Status;
 import com.example.accountapp.common.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -15,6 +17,16 @@ import java.util.Set;
 public class User extends BaseEntity {
     private String username;
     private String firstName;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birthDate;
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
 
     public String getUsername() {
         return username;
@@ -29,6 +41,7 @@ public class User extends BaseEntity {
     private String password;
     private String phoneNumber;
     private Status status;
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -55,7 +68,7 @@ public class User extends BaseEntity {
     }
 
 
-    public User(String username, String firstName, String lastName, String email, String password, String phoneNumber, Status status, List<Account> accounts) {
+    public User(String username, String firstName, String lastName, String email, String password, String phoneNumber, Status status, List<Account> accounts,LocalDate birthDate) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -64,9 +77,10 @@ public class User extends BaseEntity {
         this.phoneNumber = phoneNumber;
         this.status = status;
         this.accounts = accounts;
+        this.birthDate=birthDate;
     }
 
-    public User(LocalDateTime createdDate, LocalDateTime lastModifiedDate, String createdBy, String lastModifiedBy, String username, String firstName, String lastName, String email, String password, String phoneNumber, Status status, List<Account> accounts) {
+    public User(LocalDateTime createdDate, LocalDateTime lastModifiedDate, String createdBy, String lastModifiedBy, String username, String firstName, String lastName, String email, String password, String phoneNumber, Status status, List<Account> accounts,LocalDate birthDate) {
         super(createdDate, lastModifiedDate, createdBy, lastModifiedBy);
         this.username = username;
         this.firstName = firstName;
@@ -76,6 +90,7 @@ public class User extends BaseEntity {
         this.phoneNumber = phoneNumber;
         this.status = status;
         this.accounts = accounts;
+        this.birthDate=birthDate;
     }
 
     public String getFirstName() {

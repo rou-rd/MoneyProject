@@ -7,7 +7,7 @@ import com.example.accountapp.common.Status;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class AccountRequestDTO extends BaseEntity {
+public class AccountRequestDTO {
 
         private BigDecimal balance;
         private Status status;
@@ -54,7 +54,6 @@ public class AccountRequestDTO extends BaseEntity {
     }
 
     public AccountRequestDTO(LocalDateTime createdDate, LocalDateTime lastModifiedDate, String createdBy, String lastModifiedBy, BigDecimal balance, Status status, Currency currency, Long userId) {
-        super(createdDate, lastModifiedDate, createdBy, lastModifiedBy);
         this.balance = balance;
         this.status = status;
         this.currency = currency;
