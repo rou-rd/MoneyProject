@@ -42,11 +42,11 @@
           <label class="form-label">Email address / Username</label>
           <input 
             type="email" 
-            formControlName="email"
+            formControlName="username"
             class="form-input"
-            [class.error]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+            [class.error]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched"
             placeholder="admin@gmail.com">
-          <div class="error-message" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+          <div class="error-message" *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
             Please enter a valid email address
           </div>
         </div>
@@ -132,7 +132,7 @@
       </form>
 
       <div class="signup-link">
-        Don't have an account? <a href="#">Sign up</a>
+        Don't have an account? <a routerLink="/signup">Sign up</a>
       </div>
     </div>
   </div>

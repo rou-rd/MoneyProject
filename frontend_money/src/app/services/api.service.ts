@@ -24,11 +24,33 @@ export interface Transaction {
   category: string;
 }
 
+export interface RegisterUserRequest {
+  username: string;
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  birthDate: string;
+  roleid: number;
+}
+
+export interface CreateAccountRequest {
+  currency: string;
+  balance: number;
+  userId: number;
+}
+
+export interface Role {
+  id: number;
+  name: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'http://localhost:8080/api'; // Spring Boot API URL
+  private apiUrl = 'http://localhost:8081'; // Spring Boot API URL
 
   constructor(
     private http: HttpClient,
@@ -40,6 +62,25 @@ export class ApiService {
     return new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': token ? `Bearer ${token}` : ''
+    });
+  }
+
+  // User Registration
+  registerUser(userData: RegisterUserRequest): Observable<any> {
+    return this.http.post(`${this.apiUrl}/users/register`, userData);
+  }
+
+  // Roles API
+  getRoles(): Observable<Role[]> {
+    return this.http.get<Role[]>(`${this.apiUrl}/roles`, {
+      headers: this.getHeaders()
+    });
+  }
+
+  // Account Creation
+  createBankAccount(accountData: CreateAccountRequest): Observable<any> {
+    return this.http.post(`${this.apiUrl}/Account`, accountData, {
+      headers: this.getHeaders()
     });
   }
 
