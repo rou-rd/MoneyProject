@@ -42,8 +42,8 @@ export interface CreateAccountRequest {
 }
 
 export interface Role {
-  id: number;
-  name: string;
+  userId: number;
+  roleName: string;
 }
 
 @Injectable({
@@ -64,18 +64,12 @@ export class ApiService {
       'Authorization': token ? `Bearer ${token}` : ''
     });
   }
+registerUser(userData: RegisterUserRequest): Observable<string> {
+  return this.http.post(`${this.apiUrl}/users/register`, userData, {
+    responseType: 'text'
+  });
+}
 
-  // User Registration
-  registerUser(userData: RegisterUserRequest): Observable<any> {
-    return this.http.post(`${this.apiUrl}/users/register`, userData);
-  }
-
-  // Roles API
-  getRoles(): Observable<Role[]> {
-    return this.http.get<Role[]>(`${this.apiUrl}/roles`, {
-      headers: this.getHeaders()
-    });
-  }
 
   // Account Creation
   createBankAccount(accountData: CreateAccountRequest): Observable<any> {
@@ -133,5 +127,8 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}/profile/change-password`, passwordData, {
       headers: this.getHeaders()
     });
+  }
+   getRoles(): Observable<Role[]> {
+    return this.http.get<Role[]>(`${this.apiUrl}/roles/getall`);
   }
 }

@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 
 export interface Role {
-  id: number;
-  name: string;
+  userId: number;
+  roleName: string;
 }
 
 @Component({
@@ -46,19 +46,25 @@ export class SignupComponent implements OnInit {
     this.loadRoles();
   }
 
+  loading = false;
+  error  = '';
+  
   loadRoles(): void {
+    this.loading = true;
     this.apiService.getRoles().subscribe({
       next: (roles) => {
+         console.log('Roles loaded from API:', roles);
         this.roles = roles;
+        this.loading = false;
       },
       error: (error) => {
         console.error('Error loading roles:', error);
         // Mock roles for demo
         this.roles = [
-          { id: 1, name: 'Admin' },
-          { id: 2, name: 'User' },
-          { id: 3, name: 'Manager' },
-          { id: 4, name: 'Customer' }
+          { userId: 1, roleName: 'Admin' },
+          { userId: 2, roleName: 'User' },
+          { userId: 3, roleName: 'Manager' },
+          { userId: 4, roleName: 'Customer' }
         ];
       }
     });
@@ -83,11 +89,12 @@ export class SignupComponent implements OnInit {
   toggleConfirmPassword(): void {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
-
+signupSuccess: string = '';
   onSubmit(): void {
     if (this.signupForm.valid) {
       this.isLoading = true;
       this.signupError = '';
+      this.signupSuccess = '';
 
       const signupData = {
         username: this.signupForm.value.username,
@@ -100,26 +107,20 @@ export class SignupComponent implements OnInit {
         roleid: parseInt(this.signupForm.value.roleid)
       };
 
-      this.apiService.registerUser(signupData).subscribe({
-        next: (response) => {
-          this.isLoading = false;
-          // Show success message and redirect to login
-          alert('Account created successfully! Please login.');
+     this.apiService.registerUser(signupData).subscribe({
+  next: (response) => {
+    console.log('Response from server:', response); // ici response est une string
+    this.isLoading = false;
+    this.signupSuccess = 'Account created successfully! Please login.';
+      setTimeout(() => {
           this.router.navigate(['/login']);
-        },
-        error: (error) => {
-          this.isLoading = false;
-          this.signupError = error.error?.message || 'Registration failed. Please try again.';
-          
-          // For demo purposes, simulate success when API is not available
-          if (error.status === 0 || error.status === 404) {
-            setTimeout(() => {
-              alert('Account created successfully! (Demo mode)');
-              this.router.navigate(['/login']);
-            }, 1000);
-          }
-        }
-      });
+        }, 1000);
+  },
+  error: (error) => {
+    this.isLoading = false;
+    this.signupError = error.error?.message || 'Registration failed. Please try again.';
+  }
+});
     }
   }
 

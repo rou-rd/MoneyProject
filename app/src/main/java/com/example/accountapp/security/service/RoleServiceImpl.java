@@ -9,7 +9,9 @@ import com.example.accountapp.security.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -33,6 +35,13 @@ public class RoleServiceImpl implements RoleService {
         return "Role created with id: " + savedRole.getId();
     }
 
+    @Override
+    public List<RoleRequest> getAllRoles() {
+        return roleRepository.findAll()
+                .stream()
+                .map(role -> new RoleRequest(role.getId(), role.getName()))
+                .collect(Collectors.toList());
+    }
 
     @Override
     public Optional<Role> getAccountById(Long id) {
