@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { NotificationService } from './notification.service';
 
 export interface User {
   username: string;
@@ -17,11 +19,14 @@ export interface LoginRequest {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8081/users'; // adapté à ton backend
+  private apiUrl = 'http://localhost:8081/users';
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private notificationService: NotificationService
+  ) {
     this.loadUserFromStorage();
   }
 
@@ -31,7 +36,12 @@ export class AuthService {
         map((token: string) => {
           const user: User = { username: credentials.username, token };
           this.setAuthData(user);
+          this.notificationService.showSuccess('Login Successful', `Welcome back, ${credentials.username}!`);
           return token;
+        }),
+        catchError(error => {
+          this.notificationService.handleApiError(error, 'Login Failed');
+          return throwError(() => error);
         })
       );
   }
@@ -40,6 +50,7 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     this.currentUserSubject.next(null);
+    this.notificationService.showInfo('Logged Out', 'You have been successfully logged out');
   }
 
   isAuthenticated(): boolean {
