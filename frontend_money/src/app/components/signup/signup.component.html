@@ -55,18 +55,30 @@
           </div>
 
           <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">Username</label>
-              <input 
-                type="text" 
-                formControlName="username"
-                class="form-input"
-                [class.error]="signupForm.get('username')?.invalid && signupForm.get('username')?.touched"
-                placeholder="Choose a username">
-              <div class="error-message" *ngIf="signupForm.get('username')?.invalid && signupForm.get('username')?.touched">
-                Username must be at least 3 characters
-              </div>
-            </div>
+           <div class="form-group">
+  <label class="form-label">Username</label>
+  <input 
+    type="text" 
+    formControlName="username"
+    class="form-input"
+    [class.error]="signupForm.get('username')?.invalid && signupForm.get('username')?.touched"
+    placeholder="Choose a username">
+
+  <!-- Champ requis -->
+  <div class="error-message" *ngIf="signupForm.get('username')?.hasError('required') && signupForm.get('username')?.touched">
+    Username is required.
+  </div>
+
+  <!-- Minimum 3 caractères -->
+  <div class="error-message" *ngIf="signupForm.get('username')?.hasError('minlength') && signupForm.get('username')?.touched">
+    Username must be at least 3 characters.
+  </div>
+
+  <!-- Username déjà pris (backend) -->
+  <div class="error-message" *ngIf="signupForm.get('username')?.hasError('usernameTaken') && signupForm.get('username')?.touched">
+    This username is already taken.
+  </div>
+</div>
             <div class="form-group">
               <label class="form-label">Email Address</label>
               <input 

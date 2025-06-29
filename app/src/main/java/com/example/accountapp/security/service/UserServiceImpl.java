@@ -96,5 +96,20 @@ public class UserServiceImpl implements UserService {
         message.setText("Click the link to verify your account: " + url);
         mailSender.send(message);
     }
+
+
+    public void deleteUser(Long userId) {
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Supprimer l'utilisateur de chaque rôle
+        for (Role role : user.getRoles()) {
+            role.getUsers().remove(user); // très important pour mise à jour côté Role
+        }
+
+        user.getRoles().clear(); // supprimer toutes les relations côté user
+
+        userRepo.delete(user); // suppression de l'utilisateur
+    }
 }
 

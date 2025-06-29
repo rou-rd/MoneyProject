@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
-
+import { map, catchError, debounceTime, switchMap, of } from 'rxjs';
+import { AbstractControl, AsyncValidatorFn } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 export interface Role {
   userId: number;
   roleName: string;
@@ -27,10 +29,15 @@ export class SignupComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {
     this.signupForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(3)]],
+ username: [
+  '',
+  [Validators.required, Validators.minLength(3)],
+  [this.usernameExistsValidator()] // 👈 async validator ici
+],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]],
@@ -69,7 +76,21 @@ export class SignupComponent implements OnInit {
       }
     });
   }
+usernameExistsValidator(): AsyncValidatorFn {
+  return (control: AbstractControl) => {
+    if (!control.value) return of(null);
 
+    return of(control.value).pipe(
+      debounceTime(500),
+      switchMap(username =>
+        this.apiService.checkUsernameExists(username).pipe(
+          map(exists => (exists ? { usernameTaken: true } : null)),
+          catchError(() => of(null))
+        )
+      )
+    );
+  };
+}
   passwordMatchValidator(form: FormGroup) {
     const password = form.get('password');
     const confirmPassword = form.get('confirmPassword');

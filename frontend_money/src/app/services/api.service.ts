@@ -131,4 +131,9 @@ registerUser(userData: RegisterUserRequest): Observable<string> {
    getRoles(): Observable<Role[]> {
     return this.http.get<Role[]>(`${this.apiUrl}/roles/getall`);
   }
+  checkUsernameExists(username: string): Observable<boolean> {
+  return this.http.get<boolean>(`${this.apiUrl}/users/exists`, {
+    params: { username }
+  });
 }
+} 
